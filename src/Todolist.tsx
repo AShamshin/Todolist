@@ -32,7 +32,7 @@ export const Todolist = (props: PropsType) => {
       <div>
         <button>All</button>
         <button>Active</button>
-        <button>Completed</button>
+        <button>completed</button>
       </div>
     </div>
   );
