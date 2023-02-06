@@ -1,27 +1,29 @@
+import { useState } from 'react';
 import './App.css';
-import { Todolist } from './Todolist';
+import { TaskType, Todolist } from './Todolist';
 
 function App() {
-  const shapka1 = 'What to learn-1';
-  const shapka11 = 'What to learn-11111111';
-  const shapka2 = 'What to learn-2';
-  const shapka22 = 'What to learn-22222222';
+  //   let tasks1 = [
+  //     { id: 1, title: 'HTML&CSS', isDone: true },
+  //     { id: 2, title: 'JS', isDone: true },
+  //     { id: 3, title: 'ReactJS', isDone: false },
+  //   ];
 
-  const tasks1 = [
+  let [tasks1, setTasks1] = useState<Array<TaskType>>([
     { id: 1, title: 'HTML&CSS', isDone: true },
     { id: 2, title: 'JS', isDone: true },
     { id: 3, title: 'ReactJS', isDone: false },
-  ];
-  const tasks2 = [
-    { id: 1, title: 'Hello world', isDone: true },
-    { id: 2, title: 'I am Happy', isDone: false },
-    { id: 3, title: 'Yo', isDone: false },
-  ];
+  ]);
+
+  const removeTask = (taskId: number) => {
+    // tasks1 = tasks1.filter((el: TaskType) => el.id !== taskId);
+    setTasks1(tasks1.filter((el: TaskType) => el.id !== taskId));
+  };
 
   return (
     <div className='App'>
-      <Todolist newShapka={shapka11} tasks={tasks1} />
-      <Todolist shapka={shapka2} tasks={tasks2} />
+      <Todolist title='What to learn' tasks={tasks1} removeTask={removeTask} />
+      {/* <Todolist title='Songs' tasks={tasks2} /> */}
     </div>
   );
 }
