@@ -1,3 +1,5 @@
+import { ButtonNameType } from './App';
+
 export type TaskType = {
   id: number;
   title: string;
@@ -8,6 +10,7 @@ type PropsType = {
   title: string;
   tasks: Array<TaskType>;
   removeTask: (id: number) => void;
+  filteringTasks: (buttonName: ButtonNameType) => void;
 };
 
 export function Todolist(props: PropsType) {
@@ -36,9 +39,27 @@ export function Todolist(props: PropsType) {
         })}
       </ul>
       <div>
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
+        <button
+          onClick={() => {
+            props.filteringTasks('All');
+          }}
+        >
+          All
+        </button>
+        <button
+          onClick={() => {
+            props.filteringTasks('Active');
+          }}
+        >
+          Active
+        </button>
+        <button
+          onClick={() => {
+            props.filteringTasks('Completed');
+          }}
+        >
+          Completed
+        </button>
       </div>
     </div>
   );
