@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FilterValuesType } from './App';
 
 type TaskType = {
@@ -11,12 +11,24 @@ type PropsType = {
   title: string;
   tasks: Array<TaskType>;
   removeTask: (taskId: number) => void;
-  changeFilter: (value: FilterValuesType) => void;
-  deleteAllTasks: () => void;
-  threeTasks: () => void;
 };
 
 export function Todolist(props: PropsType) {
+  let [filter, setFilter] = useState<FilterValuesType>('all');
+
+  function changeFilter(value: FilterValuesType) {
+    setFilter(value);
+  }
+
+  let tasksForTodolist = props.tasks;
+
+  if (filter === 'active') {
+    tasksForTodolist = props.tasks.filter((t) => t.isDone === false);
+  }
+  if (filter === 'completed') {
+    tasksForTodolist = props.tasks.filter((t) => t.isDone === true);
+  }
+
   return (
     <div>
       <h3>{props.title}</h3>
@@ -25,7 +37,7 @@ export function Todolist(props: PropsType) {
         <button>+</button>
       </div>
       <ul>
-        {props.tasks.map((t) => (
+        {tasksForTodolist.map((t) => (
           <li key={t.id}>
             <input type='checkbox' checked={t.isDone} />
             <span>{t.title}</span>
@@ -39,31 +51,31 @@ export function Todolist(props: PropsType) {
           </li>
         ))}
       </ul>
-      <button onClick={props.deleteAllTasks}>delete</button>
+      {/* <button onClick={props.deleteAllTasks}>delete</button> */}
 
       <div>
         <button
           onClick={() => {
-            props.changeFilter('all');
+            changeFilter('all');
           }}
         >
           All
         </button>
         <button
           onClick={() => {
-            props.changeFilter('active');
+            changeFilter('active');
           }}
         >
           Active
         </button>
         <button
           onClick={() => {
-            props.changeFilter('completed');
+            changeFilter('completed');
           }}
         >
           Completed
         </button>
-        <button onClick={props.threeTasks}>first three tasks</button>
+        {/* <button onClick={props.threeTasks}>first three tasks</button> */}
       </div>
     </div>
   );
