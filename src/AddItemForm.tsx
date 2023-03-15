@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { AddBox } from '@mui/icons-material';
+import { Button, IconButton, TextField } from '@mui/material';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 type AddItemFormPropsType = {
@@ -31,18 +32,21 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
   return (
     <div>
-      <input
+      <TextField
+        variant={'outlined'}
+        label={'Type value'}
         value={title}
         onChange={onChangeHandler}
         onKeyPress={onKeyPressHandler}
-        className={error ? 'error' : ''}
+        error={!!error}
+        helperText={error}
       />
       {/* <button onClick={addItem}>+</button> */}
-      <Button variant={'contained'} color={'primary'} onClick={addItem}>
-        +
-      </Button>
+      <IconButton color={'primary'} onClick={addItem}>
+        <AddBox />
+      </IconButton>
 
-      {error && <div className='error-message'>{error}</div>}
+      {/* {error && <div className='error-message'>{error}</div>} */}
     </div>
   );
 }
