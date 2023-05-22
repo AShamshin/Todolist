@@ -3,13 +3,11 @@ import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { IconButton } from '@mui/material';
 import { AddBox } from '@mui/icons-material';
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
   addItem: (title: string) => void;
 };
 
 export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
-  console.log('AddItemForm');
-
   let [title, setTitle] = useState('');
   let [error, setError] = useState<string | null>(null);
 
@@ -28,7 +26,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (error !== null) {
-      return setError(null);
+      setError(null);
     }
     if (e.charCode === 13) {
       addItem();

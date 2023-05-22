@@ -1,22 +1,21 @@
+import Checkbox from '@mui/material/Checkbox/Checkbox';
+import React, { ChangeEvent, useCallback } from 'react';
+import { EditableSpan } from './EditableSpan';
+import { TaskType } from './Todolist';
+import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import { Checkbox, IconButton } from '@mui/material';
-import React, { useCallback } from 'react';
-import { ChangeEvent } from 'react';
-import { EditableSpan } from '../EditableSpan';
-import { TaskType } from '../Todolist';
 
-type TaskPropsType = {
+export type TaskPropsType = {
+  changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void;
   changeTaskTitle: (
     taskId: string,
     newTitle: string,
     todolistId: string
   ) => void;
   removeTask: (taskId: string, todolistId: string) => void;
-  changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void;
   task: TaskType;
   todolistId: string;
 };
-
 export const Task = React.memo((props: TaskPropsType) => {
   const onClickHandler = () =>
     props.removeTask(props.task.id, props.todolistId);
@@ -28,7 +27,7 @@ export const Task = React.memo((props: TaskPropsType) => {
     (newValue: string) => {
       props.changeTaskTitle(props.task.id, newValue, props.todolistId);
     },
-    [props.changeTaskTitle, props.task.id, props.todolistId]
+    [props.task.id, props.changeTaskTitle, props.todolistId]
   );
 
   return (
